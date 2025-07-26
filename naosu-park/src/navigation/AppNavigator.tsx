@@ -4,14 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StartScreen from '../screens/StartScreen';
 import HomeScreen from '../screens/HomeScreen';
 import GameSelectScreen from '../screens/GameSelectScreen';
+import SlidePuzzleScreen from '../screens/SlidePuzzleScreen';
+import { PageList } from '../types';
 
-export type RootStackParamList = {
-  Start: undefined;
-  Home: undefined;
-  GameSelect: undefined;
-};
-
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<PageList>();
 
 export default function AppNavigator() {
   return (
@@ -20,6 +16,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Start" component={StartScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="GameSelect" component={GameSelectScreen} />
+        <Stack.Screen name="SlidePuzzle" component={SlidePuzzleScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
