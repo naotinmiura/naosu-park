@@ -4,6 +4,7 @@ export type PageList = {
   GameSelect: undefined;
   SlidePuzzle: undefined;
   NumberGuess: undefined;
+  TypingGame: undefined;
   GameResult: {
     gameName: string;
     score: number;

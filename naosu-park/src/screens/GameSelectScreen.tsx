@@ -18,6 +18,9 @@ export default function GameSelectScreen({ navigation }: Props) {
       case 'NUMBER_GUESS':
         navigation.navigate('NumberGuess');
         break;
+      case 'TYPING_GAME':
+        navigation.navigate('TypingGame');
+        break;
       default:
         console.warn(`Unknown game: ${gameId}`);
     }

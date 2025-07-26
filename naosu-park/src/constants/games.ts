@@ -39,6 +39,18 @@ export const GAMES: Record<string, GameConfig> = {
       showAttempts: true,
     },
   },
+  TYPING_GAME: {
+    id: 'TYPING_GAME',
+    name: LABELS.BUTTONS.TYPING_GAME,
+    title: LABELS.SCREEN_TITLES.TYPING_GAME,
+    description: '表示された単語を素早く入力するゲーム',
+    hasResult: true,
+    resultConfig: {
+      showScore: true,
+      showTime: true,
+      showAttempts: false,
+    },
+  },
 };
 
 // ゲーム一覧を配列として取得
