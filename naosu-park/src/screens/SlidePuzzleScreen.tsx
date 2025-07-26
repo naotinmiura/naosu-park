@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../navigation/AppNavigator';
+import { PageList } from '../types';
+import { LABELS } from '../constants/labels';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SlidePuzzle'>;
+type Props = NativeStackScreenProps<PageList, 'SlidePuzzle'>;
 
 export default function SlidePuzzleScreen({ navigation }: Props) {
   const size = 3; // 3x3
@@ -42,8 +43,8 @@ export default function SlidePuzzleScreen({ navigation }: Props) {
       setTiles(newTiles);
 
       if (isSolved(newTiles)) {
-        Alert.alert('おめでとう！', 'クリアしました！', [
-          { text: 'OK', onPress: () => navigation.goBack() }
+        Alert.alert(LABELS.MESSAGES.CONGRATULATIONS, LABELS.MESSAGES.CLEAR, [
+          { text: LABELS.MESSAGES.OK, onPress: () => navigation.goBack() }
         ]);
       }
     }
@@ -67,7 +68,7 @@ export default function SlidePuzzleScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>スライドパズル</Text>
+      <Text style={styles.title}>{LABELS.SCREEN_TITLES.SLIDE_PUZZLE}</Text>
       <FlatList
         data={tiles}
         renderItem={renderTile}
@@ -76,7 +77,7 @@ export default function SlidePuzzleScreen({ navigation }: Props) {
         scrollEnabled={false}
       />
       <TouchableOpacity style={styles.resetButton} onPress={resetBoard}>
-        <Text style={styles.resetText}>リセット</Text>
+        <Text style={styles.resetText}>{LABELS.BUTTONS.RESET}</Text>
       </TouchableOpacity>
     </View>
   );

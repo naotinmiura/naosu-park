@@ -2,14 +2,15 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
+import { LABELS } from '../constants/labels';
 
 type Props = NativeStackScreenProps<PageList, 'GameSelect'>;
 
 export default function GameSelectScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>ゲーム選択</Text>
-      <Button title="スライドパズル" onPress={() => navigation.navigate('SlidePuzzle')} />
+      <Text style={styles.title}>{LABELS.SCREEN_TITLES.GAME_SELECT}</Text>
+      <Button title={LABELS.BUTTONS.SLIDE_PUZZLE} onPress={() => navigation.navigate('SlidePuzzle')} />
     </View>
   );
 }
