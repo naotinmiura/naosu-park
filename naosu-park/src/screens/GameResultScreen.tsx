@@ -3,22 +3,13 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
+import { getGameConfig } from '../constants/games';
 
 type Props = NativeStackScreenProps<PageList, 'GameResult'>;
 
-interface GameResultScreenProps extends Props {
-  route: {
-    params: {
-      gameName: string;
-      score: number;
-      time: number; // 秒単位
-      attempts?: number; // 試行回数（数字当てゲーム用）
-    };
-  };
-}
-
-export default function GameResultScreen({ navigation, route }: GameResultScreenProps) {
+export default function GameResultScreen({ navigation, route }: Props) {
   const { gameName, score, time, attempts } = route.params;
+  const gameConfig = getGameConfig(gameName);
 
   // 時間を分:秒の形式に変換
   const formatTime = (seconds: number) => {
@@ -30,13 +21,19 @@ export default function GameResultScreen({ navigation, route }: GameResultScreen
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{LABELS.MESSAGES.CONGRATULATIONS}</Text>
-      <Text style={styles.gameName}>{gameName}</Text>
+      <Text style={styles.gameName}>{gameConfig?.title || gameName}</Text>
       <Text style={styles.message}>{LABELS.MESSAGES.CLEAR}</Text>
       
       <View style={styles.statsContainer}>
-        <Text style={styles.stat}>スコア: {score}</Text>
-        <Text style={styles.stat}>時間: {formatTime(time)}</Text>
-        {attempts && <Text style={styles.stat}>試行回数: {attempts}</Text>}
+        {gameConfig?.resultConfig?.showScore && (
+          <Text style={styles.stat}>スコア: {score}</Text>
+        )}
+        {gameConfig?.resultConfig?.showTime && (
+          <Text style={styles.stat}>時間: {formatTime(time)}</Text>
+        )}
+        {gameConfig?.resultConfig?.showAttempts && attempts && (
+          <Text style={styles.stat}>試行回数: {attempts}</Text>
+        )}
       </View>
       
       <View style={styles.buttonContainer}>
