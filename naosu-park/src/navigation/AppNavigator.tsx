@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import GameSelectScreen from '../screens/GameSelectScreen';
 import SlidePuzzleScreen from '../screens/SlidePuzzleScreen';
 import NumberGuessScreen from '../screens/NumberGuessScreen';
+import TypingGameScreen from '../screens/TypingGameScreen';
 import GameResultScreen from '../screens/GameResultScreen';
 import { PageList } from '../types';
 
@@ -20,6 +21,7 @@ export default function AppNavigator() {
         <Stack.Screen name="GameSelect" component={GameSelectScreen} />
         <Stack.Screen name="SlidePuzzle" component={SlidePuzzleScreen} />
         <Stack.Screen name="NumberGuess" component={NumberGuessScreen} />
+        <Stack.Screen name="TypingGame" component={TypingGameScreen} />
         <Stack.Screen name="GameResult" component={GameResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>

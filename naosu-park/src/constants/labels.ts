@@ -9,6 +9,7 @@ export const LABELS = {
     GAME_SELECT: 'ゲーム選択',
     SLIDE_PUZZLE: 'スライドパズル',
     NUMBER_GUESS: '数字当てゲーム',
+    TYPING_GAME: 'タイピングゲーム',
   },
   
   // ボタンラベル
@@ -17,6 +18,7 @@ export const LABELS = {
     GAME_SELECT: 'ゲーム選択',
     SLIDE_PUZZLE: 'スライドパズル',
     NUMBER_GUESS: '数字当てゲーム',
+    TYPING_GAME: 'タイピングゲーム',
     RESET: 'リセット',
   },
   
@@ -33,5 +35,15 @@ export const LABELS = {
     GUESS_BUTTON: '予想する',
     BACK_TO_GAME_SELECT: 'ゲーム選択に戻る',
     INPUT_PLACEHOLDER: '数字を入力',
+    TYPING_INSTRUCTION: '表示された単語を入力してください',
+    TYPING_CORRECT: '正解！',
+    TYPING_INCORRECT: '間違いです。もう一度入力してください',
+    TYPING_PLACEHOLDER: '単語を入力',
+    TYPING_SUBMIT: '送信',
+    TYPING_WORD_COUNT: '単語数',
+    TYPING_ACCURACY: '正確性',
+    TYPING_CORRECT_COUNT: '正解',
+    TYPING_GAME_END: 'ゲーム終了',
+    TYPING_ERROR_TITLE: '間違い',
   },
 } as const; 
