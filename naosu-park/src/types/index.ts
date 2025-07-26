@@ -3,4 +3,11 @@ export type PageList = {
   Home: undefined;
   GameSelect: undefined;
   SlidePuzzle: undefined;
+  NumberGuess: undefined;
+  GameResult: {
+    gameName: string;
+    score: number;
+    time: number;
+    attempts?: number;
+  };
 }; 
