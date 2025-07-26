@@ -137,3 +137,43 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+iuranaoto@miuranaotonoMacBook-Air naosu-park-app % npx expo install react-native-web react-dom @expo/webpack-config
+› Installing 2 SDK 53.0.0 compatible native modules and 1 other package using npm
+> npm install --save @expo/webpack-config
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR! 
+npm ERR! While resolving: naosu-park-app@1.0.0
+npm ERR! Found: expo@53.0.20
+npm ERR! node_modules/expo
+npm ERR!   expo@"~53.0.20" from the root project
+npm ERR!   peer expo@"*" from @expo/dom-webview@0.1.5
+npm ERR!   node_modules/@expo/dom-webview
+npm ERR!     peerOptional @expo/dom-webview@"*" from expo@53.0.20
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer expo@"^49.0.7 || ^50.0.0-0" from @expo/webpack-config@19.0.1
+npm ERR! node_modules/@expo/webpack-config
+npm ERR!   @expo/webpack-config@"*" from the root project
+npm ERR! 
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR! 
+npm ERR! 
+npm ERR! For a full report see:
+npm ERR! /Users/miuranaoto/.npm/_logs/2025-07-26T14_26_57_132Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: /Users/miuranaoto/.npm/_logs/2025-07-26T14_26_57_132Z-debug-0.log
+Error: npm install --save @expo/webpack-config exited with non-zero code: 1
+Error: npm install --save @expo/webpack-config exited with non-zero code: 1
+    at ChildProcess.completionListener (/Users/miuranaoto/workspace/service/naosu-park/naosu-park-app/node_modules/@expo/spawn-async/build/spawnAsync.js:42:23)
+    at Object.onceWrapper (node:events:629:26)
+    at ChildProcess.emit (node:events:514:28)
+    at maybeClose (node:internal/child_process:1091:16)
+    at ChildProcess._handle.onexit (node:internal/child_process:302:5)
+    ...
+    at spawnAsync (/Users/miuranaoto/workspace/service/naosu-park/naosu-park-app/node_modules/@expo/spawn-async/build/spawnAsync.js:7:23)
+    at NpmPackageManager.runAsync (/Users/miuranaoto/workspace/service/naosu-park/naosu-park-app/node_modules/@expo/package-manager/build/node/BasePackageManager.js:41:42)
+    at /Users/miuranaoto/workspace/service/naosu-park/naosu-park-app/node_modules/@expo/package-manager/build/node/NpmPackageManager.js:37:20
+    at /Users/miuranaoto/workspace/service/naosu-park/naosu-park-app/node_modules/@expo/package-manager/build/utils/spawn.js:14:34

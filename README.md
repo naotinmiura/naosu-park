@@ -1,1 +1,0 @@
-# naosu-park
