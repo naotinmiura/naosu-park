@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
+import { COMMON_STYLES, SPACING } from '../constants/theme';
+import { Button, Input } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'NumberGuess'>;
 
@@ -70,68 +72,74 @@ export default function NumberGuessScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{LABELS.SCREEN_TITLES.NUMBER_GUESS}</Text>
-      <Text style={styles.message}>{message}</Text>
-      <Text style={styles.attempts}>{LABELS.MESSAGES.ATTEMPTS}: {attempts}</Text>
+      <View style={styles.content}>
+        <Text style={COMMON_STYLES.title}>{LABELS.SCREEN_TITLES.NUMBER_GUESS}</Text>
+        <Text style={styles.message}>{message}</Text>
+        <Text style={styles.attempts}>{LABELS.MESSAGES.ATTEMPTS}: {attempts}</Text>
 
-      
-      <TextInput
-        style={styles.input}
-        value={guess}
-        onChangeText={setGuess}
-        placeholder={LABELS.MESSAGES.INPUT_PLACEHOLDER}
-        keyboardType="numeric"
-        maxLength={3}
-      />
-      
-      <View style={styles.buttonContainer}>
-        <Button title={LABELS.MESSAGES.GUESS_BUTTON} onPress={handleGuess} />
-        <Button title={LABELS.BUTTONS.RESET} onPress={handleReset} />
+        <Input
+          value={guess}
+          onChangeText={setGuess}
+          placeholder={LABELS.MESSAGES.INPUT_PLACEHOLDER}
+          keyboardType="numeric"
+          maxLength={3}
+          size="lg"
+          style={styles.input}
+        />
+        
+        <View style={styles.buttonContainer}>
+          <Button 
+            title={LABELS.MESSAGES.GUESS_BUTTON} 
+            onPress={handleGuess}
+            variant="primary"
+            size="lg"
+          />
+          <Button 
+            title={LABELS.BUTTONS.RESET} 
+            onPress={handleReset}
+            variant="outline"
+            size="lg"
+          />
+        </View>
+        
+        <Button 
+          title={LABELS.MESSAGES.BACK_TO_GAME_SELECT} 
+          onPress={() => navigation.navigate('GameSelect')}
+          variant="ghost"
+          size="md"
+        />
       </View>
-      
-      <Button title={LABELS.MESSAGES.BACK_TO_GAME_SELECT} onPress={() => navigation.navigate('GameSelect')} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    ...COMMON_STYLES.centerContainer,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  content: {
+    width: '100%',
+    maxWidth: 350,
+    alignItems: 'center',
   },
   message: {
-    fontSize: 16,
-    marginBottom: 10,
+    ...COMMON_STYLES.bodyText,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
   },
   attempts: {
-    fontSize: 14,
-    marginBottom: 20,
-    color: '#666',
+    ...COMMON_STYLES.caption,
+    marginBottom: SPACING.lg,
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
     width: 200,
-    textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 20,
+    marginBottom: SPACING.lg,
   },
   buttonContainer: {
     flexDirection: 'row',
-    gap: 10,
-    marginBottom: 20,
+    gap: SPACING.sm,
+    marginBottom: SPACING.lg,
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
-
-}); 
+});

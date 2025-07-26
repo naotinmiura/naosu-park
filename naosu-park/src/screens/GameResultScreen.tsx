@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
 import { getGameConfig } from '../constants/games';
+import { COMMON_STYLES, SPACING, COLORS, TYPOGRAPHY } from '../constants/theme';
+import { Button, Card } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'GameResult'>;
 
@@ -20,34 +22,42 @@ export default function GameResultScreen({ navigation, route }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{LABELS.MESSAGES.CONGRATULATIONS}</Text>
-      <Text style={styles.gameName}>{gameConfig?.title || gameName}</Text>
-      <Text style={styles.message}>{LABELS.MESSAGES.CLEAR}</Text>
-      
-      <View style={styles.statsContainer}>
-        {gameConfig?.resultConfig?.showScore && (
-          <Text style={styles.stat}>スコア: {score}</Text>
-        )}
-        {gameConfig?.resultConfig?.showTime && (
-          <Text style={styles.stat}>時間: {formatTime(time)}</Text>
-        )}
-        {gameConfig?.resultConfig?.showAttempts && attempts && (
-          <Text style={styles.stat}>試行回数: {attempts}</Text>
-        )}
-      </View>
-      
-      <View style={styles.buttonContainer}>
-        <Button 
-          title="もう一度プレイ" 
-          onPress={() => {
-            // 前の画面に戻る（同じゲームを再開）
-            navigation.goBack();
-          }} 
-        />
-        <Button 
-          title="ゲーム選択に戻る" 
-          onPress={() => navigation.navigate('GameSelect')} 
-        />
+      <View style={styles.content}>
+        <Text style={styles.title}>{LABELS.MESSAGES.CONGRATULATIONS}</Text>
+        <Text style={styles.gameName}>{gameConfig?.title || gameName}</Text>
+        <Text style={styles.message}>{LABELS.MESSAGES.CLEAR}</Text>
+        
+        <Card style={styles.statsContainer} variant="elevated">
+          {gameConfig?.resultConfig?.showScore && (
+            <Text style={styles.stat}>スコア: {score}</Text>
+          )}
+          {gameConfig?.resultConfig?.showTime && (
+            <Text style={styles.stat}>時間: {formatTime(time)}</Text>
+          )}
+          {gameConfig?.resultConfig?.showAttempts && attempts && (
+            <Text style={styles.stat}>試行回数: {attempts}</Text>
+          )}
+        </Card>
+        
+        <View style={styles.buttonContainer}>
+          <Button 
+            title="もう一度プレイ" 
+            onPress={() => {
+              // 前の画面に戻る（同じゲームを再開）
+              navigation.goBack();
+            }}
+            variant="primary"
+            size="lg"
+            fullWidth
+          />
+          <Button 
+            title="ゲーム選択に戻る" 
+            onPress={() => navigation.navigate('GameSelect')}
+            variant="outline"
+            size="lg"
+            fullWidth
+          />
+        </View>
       </View>
     </View>
   );
@@ -55,56 +65,47 @@ export default function GameResultScreen({ navigation, route }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    ...COMMON_STYLES.centerContainer,
+    backgroundColor: COLORS.background,
+  },
+  content: {
+    width: '100%',
+    maxWidth: 350,
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f0f8ff',
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#ff6b6b',
-    marginBottom: 10,
+    fontSize: TYPOGRAPHY.fontSize['4xl'],
+    fontWeight: TYPOGRAPHY.fontWeight.bold,
+    color: COLORS.success,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
   },
   gameName: {
-    fontSize: 20,
-    color: '#4ecdc4',
-    marginBottom: 10,
+    fontSize: TYPOGRAPHY.fontSize.xl,
+    color: COLORS.primary,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: TYPOGRAPHY.fontWeight.bold,
   },
   message: {
-    fontSize: 24,
-    color: '#4ecdc4',
-    marginBottom: 30,
+    fontSize: TYPOGRAPHY.fontSize['2xl'],
+    color: COLORS.primary,
+    marginBottom: SPACING.xl,
     textAlign: 'center',
   },
   statsContainer: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 40,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    marginBottom: SPACING['2xl'],
+    width: '100%',
   },
   stat: {
-    fontSize: 18,
-    color: '#45b7d1',
-    marginBottom: 10,
+    fontSize: TYPOGRAPHY.fontSize.lg,
+    color: COLORS.info,
+    marginBottom: SPACING.sm,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontWeight: TYPOGRAPHY.fontWeight.bold,
   },
   buttonContainer: {
-    gap: 15,
+    gap: SPACING.md,
     width: '100%',
-    maxWidth: 300,
   },
-}); 
+});

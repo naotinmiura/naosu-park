@@ -1,21 +1,36 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
+import { COMMON_STYLES } from '../constants/theme';
+import { Button } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'Home'>;
 
 export default function HomeScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{LABELS.SCREEN_TITLES.HOME}</Text>
-      <Button title={LABELS.BUTTONS.GAME_SELECT} onPress={() => navigation.navigate('GameSelect')} />
+      <View style={styles.content}>
+        <Text style={COMMON_STYLES.title}>{LABELS.SCREEN_TITLES.HOME}</Text>
+        <Button 
+          title={LABELS.BUTTONS.GAME_SELECT} 
+          onPress={() => navigation.navigate('GameSelect')}
+          size="lg"
+          fullWidth
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
+  container: {
+    ...COMMON_STYLES.centerContainer,
+  },
+  content: {
+    width: '100%',
+    maxWidth: 300,
+    alignItems: 'center',
+  },
 });
