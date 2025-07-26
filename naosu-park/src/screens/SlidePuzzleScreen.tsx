@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList, Alert } from 'react
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
+import { COMMON_STYLES, SPACING, COLORS, BORDER_RADIUS, SHADOWS } from '../constants/theme';
+import { GameButton, BackgroundPattern } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'SlidePuzzle'>;
 
@@ -68,32 +70,84 @@ export default function SlidePuzzleScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{LABELS.SCREEN_TITLES.SLIDE_PUZZLE}</Text>
-      <FlatList
-        data={tiles}
-        renderItem={renderTile}
-        keyExtractor={(_, i) => i.toString()}
-        numColumns={size}
-        scrollEnabled={false}
-      />
-      <TouchableOpacity style={styles.resetButton} onPress={resetBoard}>
-        <Text style={styles.resetText}>{LABELS.BUTTONS.RESET}</Text>
-      </TouchableOpacity>
+      <BackgroundPattern variant="circles" opacity={0.03} />
+      <View style={styles.content}>
+        <Text style={styles.title}>{LABELS.SCREEN_TITLES.SLIDE_PUZZLE}</Text>
+        <View style={styles.puzzleContainer}>
+          <FlatList
+            data={tiles}
+            renderItem={renderTile}
+            keyExtractor={(_, i) => i.toString()}
+            numColumns={size}
+            scrollEnabled={false}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <GameButton 
+            title={LABELS.BUTTONS.RESET} 
+            onPress={resetBoard}
+            variant="primary"
+            size="lg"
+          />
+          <GameButton 
+            title="ゲーム選択に戻る" 
+            onPress={() => navigation.navigate('GameSelect')}
+            variant="secondary"
+            size="lg"
+          />
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
+  container: {
+    ...COMMON_STYLES.centerContainer,
+    backgroundColor: COLORS.background,
+  },
+  content: {
+    width: '100%',
+    maxWidth: 350,
+    alignItems: 'center',
+  },
+  title: {
+    ...COMMON_STYLES.title,
+    color: COLORS.game.purple,
+    marginBottom: SPACING.lg,
+  },
+  puzzleContainer: {
+    marginBottom: SPACING.lg,
+    backgroundColor: COLORS.surface,
+    borderRadius: BORDER_RADIUS.lg,
+    padding: SPACING.md,
+    ...SHADOWS.md,
+  },
   tile: {
-    width: 80, height: 80, justifyContent: 'center', alignItems: 'center',
-    backgroundColor: '#ddd', margin: 2, borderRadius: 8
+    width: 80,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.game.blue,
+    margin: 2,
+    borderRadius: BORDER_RADIUS.md,
+    ...SHADOWS.sm,
   },
-  emptyTile: { backgroundColor: '#fff' },
-  tileText: { fontSize: 24, fontWeight: 'bold' },
-  resetButton: {
-    marginTop: 20, paddingHorizontal: 20, paddingVertical: 10, backgroundColor: '#4cafef', borderRadius: 8
+  emptyTile: {
+    backgroundColor: COLORS.surfaceVariant,
+    borderWidth: 2,
+    borderColor: COLORS.game.blue,
+    borderStyle: 'dashed',
   },
-  resetText: { color: '#fff', fontWeight: 'bold' },
+  tileText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLORS.surface,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    gap: SPACING.md,
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
 });

@@ -1,18 +1,30 @@
 export const COLORS = {
+  // ゲームテーマカラー
+  game: {
+    yellow: '#FFD700',      // 明るい黄色
+    red: '#FF6B6B',         // 明るい赤
+    blue: '#4A90E2',        // 明るい青
+    green: '#4ECDC4',       // 明るい緑
+    orange: '#FF8C42',      // 明るいオレンジ
+    purple: '#9B59B6',      // 明るい紫
+    pink: '#FF69B4',        // 明るいピンク
+    brown: '#8B4513',       // 茶色
+  },
+  
   // プライマリカラー（メインのブランドカラー）
-  primary: '#4A90E2',
+  primary: '#4A90E2',       // 明るい青
   primaryLight: '#7BB3F0',
   primaryDark: '#2E5C8A',
   
   // セカンダリカラー（アクセント）
-  secondary: '#F39C12',
-  secondaryLight: '#F7DC6F',
-  secondaryDark: '#D68910',
+  secondary: '#FFD700',     // 明るい黄色
+  secondaryLight: '#FFF4B0',
+  secondaryDark: '#FFB300',
   
   // 背景色
-  background: '#F8F9FA',
+  background: '#FFFFFF',    // 明るい白
   surface: '#FFFFFF',
-  surfaceVariant: '#F1F3F4',
+  surfaceVariant: '#F8F9FA',
   
   // テキスト色
   textPrimary: '#1A1A1A',
@@ -20,10 +32,10 @@ export const COLORS = {
   textTertiary: '#999999',
   
   // 状態色
-  success: '#27AE60',
-  warning: '#F39C12',
-  error: '#E74C3C',
-  info: '#3498DB',
+  success: '#4ECDC4',       // 明るい緑
+  warning: '#FF8C42',       // 明るいオレンジ
+  error: '#FF6B6B',         // 明るい赤
+  info: '#4A90E2',          // 明るい青
   
   // ボーダー色
   border: '#E1E8ED',
@@ -153,5 +165,53 @@ export const COMMON_STYLES = {
     fontSize: TYPOGRAPHY.fontSize.sm,
     color: COLORS.textSecondary,
     lineHeight: TYPOGRAPHY.lineHeight.normal,
+  },
+} as const;
+
+// ゲームテーマ用スタイル
+export const GAME_STYLES = {
+  // ロゴスタイル
+  logo: {
+    fontSize: TYPOGRAPHY.fontSize['4xl'],
+    fontWeight: TYPOGRAPHY.fontWeight.bold,
+    color: COLORS.game.yellow,
+    textShadowColor: COLORS.game.blue,
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 0,
+    marginBottom: SPACING.md,
+  },
+  
+  // ゲームボタン
+  gameButton: {
+    backgroundColor: COLORS.game.red,
+    borderRadius: BORDER_RADIUS.xl,
+    paddingVertical: SPACING.lg,
+    paddingHorizontal: SPACING.xl,
+    shadowColor: COLORS.game.red,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  
+  // 背景パターン
+  backgroundPattern: {
+    backgroundColor: COLORS.background,
+    // 背景に可愛らしいパターンを追加する場合は、
+    // カスタムコンポーネントで実装
+  },
+  
+  // キャラクターカード
+  characterCard: {
+    backgroundColor: COLORS.surface,
+    borderRadius: BORDER_RADIUS.xl,
+    padding: SPACING.lg,
+    shadowColor: COLORS.shadow,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6,
+    borderWidth: 2,
+    borderColor: COLORS.game.yellow,
   },
 } as const; 

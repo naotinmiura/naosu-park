@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
+import { COMMON_STYLES, SPACING, COLORS } from '../constants/theme';
+import { GameButton, Input, GameCard, BackgroundPattern } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'TypingGame'>;
 
@@ -80,107 +82,123 @@ export default function TypingGameScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{LABELS.SCREEN_TITLES.TYPING_GAME}</Text>
-      <Text style={styles.instruction}>{LABELS.MESSAGES.TYPING_INSTRUCTION}</Text>
-      
-      <View style={styles.statsContainer}>
-        <Text style={styles.stat}>{LABELS.MESSAGES.TYPING_WORD_COUNT}: {wordCount}</Text>
-        <Text style={styles.stat}>{LABELS.MESSAGES.TYPING_CORRECT_COUNT}: {correctCount}</Text>
-        <Text style={styles.stat}>{LABELS.MESSAGES.TYPING_ACCURACY}: {accuracy}%</Text>
-      </View>
+      <BackgroundPattern variant="dots" opacity={0.03} />
+      <View style={styles.content}>
+        <Text style={styles.title}>{LABELS.SCREEN_TITLES.TYPING_GAME}</Text>
+        <Text style={styles.instruction}>{LABELS.MESSAGES.TYPING_INSTRUCTION}</Text>
+        
+        <GameCard style={styles.statsContainer} variant="item">
+          <View style={styles.statsRow}>
+            <Text style={styles.stat}>{LABELS.MESSAGES.TYPING_WORD_COUNT}: {wordCount}</Text>
+            <Text style={styles.stat}>{LABELS.MESSAGES.TYPING_CORRECT_COUNT}: {correctCount}</Text>
+            <Text style={styles.stat}>{LABELS.MESSAGES.TYPING_ACCURACY}: {accuracy}%</Text>
+          </View>
+        </GameCard>
 
-      <View style={styles.wordContainer}>
-        <Text style={styles.currentWord}>{currentWord}</Text>
-      </View>
+        <GameCard style={styles.wordContainer} variant="featured">
+          <Text style={styles.currentWord}>{currentWord}</Text>
+        </GameCard>
 
-      <TextInput
-        style={styles.input}
-        value={userInput}
-        onChangeText={setUserInput}
-        placeholder={LABELS.MESSAGES.TYPING_PLACEHOLDER}
-        autoFocus={true}
-        onSubmitEditing={handleSubmit}
-        editable={isGameActive}
-      />
-
-      <View style={styles.buttonContainer}>
-        <Button 
-          title={LABELS.MESSAGES.TYPING_SUBMIT} 
-          onPress={handleSubmit}
-          disabled={!isGameActive || !userInput.trim()}
+        <Input
+          value={userInput}
+          onChangeText={setUserInput}
+          placeholder={LABELS.MESSAGES.TYPING_PLACEHOLDER}
+          autoFocus={true}
+          onSubmitEditing={handleSubmit}
+          editable={isGameActive}
+          size="lg"
+          style={styles.input}
         />
-        <Button title={LABELS.BUTTONS.RESET} onPress={handleReset} />
-        <Button 
-          title={LABELS.MESSAGES.TYPING_GAME_END} 
-          onPress={handleGameComplete}
-          disabled={wordCount === 0}
+
+        <View style={styles.buttonContainer}>
+          <GameButton 
+            title={LABELS.MESSAGES.TYPING_SUBMIT} 
+            onPress={handleSubmit}
+            disabled={!isGameActive || !userInput.trim()}
+            variant="primary"
+            size="lg"
+          />
+          <GameButton 
+            title={LABELS.BUTTONS.RESET} 
+            onPress={handleReset}
+            variant="secondary"
+            size="lg"
+          />
+          <GameButton 
+            title={LABELS.MESSAGES.TYPING_GAME_END} 
+            onPress={handleGameComplete}
+            disabled={wordCount === 0}
+            variant="success"
+            size="lg"
+          />
+        </View>
+
+        <GameButton 
+          title={LABELS.MESSAGES.BACK_TO_GAME_SELECT} 
+          onPress={() => navigation.navigate('GameSelect')}
+          variant="warning"
+          size="md"
         />
       </View>
-
-      <Button 
-        title={LABELS.MESSAGES.BACK_TO_GAME_SELECT} 
-        onPress={() => navigation.navigate('GameSelect')} 
-      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    ...COMMON_STYLES.centerContainer,
+    backgroundColor: COLORS.background,
+  },
+  content: {
+    width: '100%',
+    maxWidth: 400,
     alignItems: 'center',
-    padding: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    ...COMMON_STYLES.title,
+    color: COLORS.game.blue,
+    marginBottom: SPACING.md,
   },
   instruction: {
-    fontSize: 16,
-    marginBottom: 20,
+    ...COMMON_STYLES.bodyText,
+    marginBottom: SPACING.lg,
     textAlign: 'center',
-    color: '#666',
+    color: COLORS.textSecondary,
   },
   statsContainer: {
+    width: '100%',
+    marginBottom: SPACING.lg,
+  },
+  statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '100%',
-    marginBottom: 30,
+    alignItems: 'center',
   },
   stat: {
     fontSize: 14,
-    color: '#45b7d1',
+    color: COLORS.game.green,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   wordContainer: {
-    backgroundColor: '#f0f8ff',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-    minWidth: 200,
+    width: '100%',
+    marginBottom: SPACING.lg,
     alignItems: 'center',
   },
   currentWord: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#4ecdc4',
+    color: COLORS.game.blue,
+    textAlign: 'center',
   },
   input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    width: 250,
-    textAlign: 'center',
-    fontSize: 18,
-    marginBottom: 20,
+    width: 280,
+    marginBottom: SPACING.lg,
   },
   buttonContainer: {
     flexDirection: 'row',
-    gap: 10,
-    marginBottom: 20,
+    gap: SPACING.sm,
+    marginBottom: SPACING.lg,
     flexWrap: 'wrap',
     justifyContent: 'center',
   },

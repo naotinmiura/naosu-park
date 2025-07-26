@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Alert } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
-import { COMMON_STYLES, SPACING } from '../constants/theme';
-import { Button, Input } from '../components';
+import { COMMON_STYLES, SPACING, COLORS } from '../constants/theme';
+import { GameButton, Input, BackgroundPattern } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'NumberGuess'>;
 
@@ -72,6 +72,7 @@ export default function NumberGuessScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <BackgroundPattern variant="stars" opacity={0.03} />
       <View style={styles.content}>
         <Text style={COMMON_STYLES.title}>{LABELS.SCREEN_TITLES.NUMBER_GUESS}</Text>
         <Text style={styles.message}>{message}</Text>
@@ -88,24 +89,24 @@ export default function NumberGuessScreen({ navigation }: Props) {
         />
         
         <View style={styles.buttonContainer}>
-          <Button 
+          <GameButton 
             title={LABELS.MESSAGES.GUESS_BUTTON} 
             onPress={handleGuess}
             variant="primary"
             size="lg"
           />
-          <Button 
+          <GameButton 
             title={LABELS.BUTTONS.RESET} 
             onPress={handleReset}
-            variant="outline"
+            variant="secondary"
             size="lg"
           />
         </View>
         
-        <Button 
+        <GameButton 
           title={LABELS.MESSAGES.BACK_TO_GAME_SELECT} 
           onPress={() => navigation.navigate('GameSelect')}
-          variant="ghost"
+          variant="success"
           size="md"
         />
       </View>

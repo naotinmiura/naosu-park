@@ -5,7 +5,7 @@ import { PageList } from '../types';
 import { LABELS } from '../constants/labels';
 import { getGameConfig } from '../constants/games';
 import { COMMON_STYLES, SPACING, COLORS, TYPOGRAPHY } from '../constants/theme';
-import { Button, Card } from '../components';
+import { GameButton, GameCard, BackgroundPattern } from '../components';
 
 type Props = NativeStackScreenProps<PageList, 'GameResult'>;
 
@@ -22,12 +22,13 @@ export default function GameResultScreen({ navigation, route }: Props) {
 
   return (
     <View style={styles.container}>
+      <BackgroundPattern variant="mixed" opacity={0.03} />
       <View style={styles.content}>
         <Text style={styles.title}>{LABELS.MESSAGES.CONGRATULATIONS}</Text>
         <Text style={styles.gameName}>{gameConfig?.title || gameName}</Text>
         <Text style={styles.message}>{LABELS.MESSAGES.CLEAR}</Text>
         
-        <Card style={styles.statsContainer} variant="elevated">
+        <GameCard style={styles.statsContainer} variant="featured">
           {gameConfig?.resultConfig?.showScore && (
             <Text style={styles.stat}>スコア: {score}</Text>
           )}
@@ -37,10 +38,10 @@ export default function GameResultScreen({ navigation, route }: Props) {
           {gameConfig?.resultConfig?.showAttempts && attempts && (
             <Text style={styles.stat}>試行回数: {attempts}</Text>
           )}
-        </Card>
+        </GameCard>
         
         <View style={styles.buttonContainer}>
-          <Button 
+          <GameButton 
             title="もう一度プレイ" 
             onPress={() => {
               // 前の画面に戻る（同じゲームを再開）
@@ -50,10 +51,10 @@ export default function GameResultScreen({ navigation, route }: Props) {
             size="lg"
             fullWidth
           />
-          <Button 
+          <GameButton 
             title="ゲーム選択に戻る" 
             onPress={() => navigation.navigate('GameSelect')}
-            variant="outline"
+            variant="secondary"
             size="lg"
             fullWidth
           />
