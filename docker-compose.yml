@@ -1,7 +1,23 @@
 services:
+  frontend:
+    build: ./frontend
+    command: npx expo start --web --port 19006
+    ports:
+      - "19006:19006"
+      - "19007:19007"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    environment:
+      - WATCHPACK_POLLING=true
+      - NODE_ENV=development
+    depends_on:
+      - backend
+
   backend:
     build: ./backend
-    command: npx serverless offline --stage local --host 0.0.0.0
+    command: npm run start
     ports:
       - "3000:3000"
     volumes:
@@ -10,6 +26,16 @@ services:
     working_dir: /app
     depends_on:
       - localstack
+
+  backend-watch:
+    build: ./backend
+    command: npm run watch
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    working_dir: /app
+    profiles:
+      - dev
 
   localstack:
     image: localstack/localstack
