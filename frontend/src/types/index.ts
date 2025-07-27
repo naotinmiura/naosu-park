@@ -12,3 +12,9 @@ export type PageList = {
     attempts?: number;
   };
 }; 
+
+export type Game = {
+  game_id: string;
+  name: string;
+  description: string;
+};
