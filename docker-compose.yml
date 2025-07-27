@@ -1,0 +1,22 @@
+services:
+  backend:
+    build: ./backend
+    command: npx serverless offline --stage local --host 0.0.0.0
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    working_dir: /app
+    depends_on:
+      - localstack
+
+  localstack:
+    image: localstack/localstack
+    environment:
+      - SERVICES=dynamodb,apigateway,s3
+      - EDGE_PORT=4566
+    ports:
+      - "4566:4566"
+    volumes:
+      - "./backend/localstack:/etc/localstack/init/ready.d"
